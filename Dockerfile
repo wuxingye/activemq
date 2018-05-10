@@ -28,7 +28,9 @@ RUN echo '\nACTIVEMQ_OPTS="$ACTIVEMQ_OPTS -Djava.rmi.server.hostname=${ACTIVEMQ_
 RUN echo '\nACTIVEMQ_OPTS="$ACTIVEMQ_OPTS -Dcom.sun.management.jmxremote.port=1099 "' >> ${ACTIVEMQ_HOME}/bin/env
 RUN echo '\nACTIVEMQ_OPTS="$ACTIVEMQ_OPTS -Dcom.sun.management.jmxremote.rmi.port=1099 "' >> ${ACTIVEMQ_HOME}/bin/env
 RUN echo '\nACTIVEMQ_OPTS="$ACTIVEMQ_OPTS -Dcom.sun.management.jmxremote.ssl=false "' >> ${ACTIVEMQ_HOME}/bin/env
-RUN echo '\nACTIVEMQ_OPTS="$ACTIVEMQ_OPTS -Dcom.sun.management.jmxremote.authenticate=false "' >> ${ACTIVEMQ_HOME}/bin/env
+# RUN echo '\nACTIVEMQ_OPTS="$ACTIVEMQ_OPTS -Dcom.sun.management.jmxremote.authenticate=false "' >> ${ACTIVEMQ_HOME}/bin/env
+RUN echo '\nACTIVEMQ_OPTS="$ACTIVEMQ_OPTS -Dcom.sun.management.jmxremote.access.file=$ACTIVEMQ_BASE/conf/jmx.access "' >> ${ACTIVEMQ_HOME}/bin/env
+RUN echo '\nACTIVEMQ_OPTS="$ACTIVEMQ_OPTS -Dcom.sun.management.jmxremote.password.file=$ACTIVEMQ_BASE/conf/jmx.password  "' >> ${ACTIVEMQ_HOME}/bin/env
 
 ADD mysql-connector-java-5.1.46.jar ${ACTIVEMQ_HOME}/lib/optional/
 ADD activemq.xml ${ACTIVEMQ_HOME}/conf/activemq.xml
