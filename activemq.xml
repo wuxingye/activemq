@@ -37,7 +37,12 @@
     <!--
         The <broker> element is used to configure the ActiveMQ broker.
     -->
-    <broker xmlns="http://activemq.apache.org/schema/core" brokerName="localhost" dataDirectory="${activemq.data}">
+    <broker xmlns="http://activemq.apache.org/schema/core"
+            persistent="true"
+            brokerName="localhost"
+            dataDirectory="${activemq.data}"
+            schedulerSupport="true"
+            useJmx="true">
 
         <destinationPolicy>
             <policyMap>
@@ -68,7 +73,7 @@
             http://activemq.apache.org/jmx.html
         -->
         <managementContext>
-            <managementContext createConnector="false"/>
+            <managementContext connectorPort="1099"/>
         </managementContext>
 
         <!--
@@ -80,7 +85,10 @@
         -->
         <persistenceAdapter>
             <!--<kahaDB directory="${activemq.data}/kahadb"/>-->
-            <jdbcPersistenceAdapter dataDirectory="${activemq.base}/data" dataSource="#mysql-ds">
+            <jdbcPersistenceAdapter dataDirectory="${activemq.base}/data"
+                                    useDatabaseLock="false"
+                                    createTablesOnStartup="true"
+                                    dataSource="#mysql-ds">
                 <statements>
                     <statements stringIdDataType="VARCHAR(128)"
                                 containerNameDataType="VARCHAR(128)"
@@ -139,9 +147,9 @@
 
     <bean id="mysql-ds" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://10.58.10.31:3306/activemq?relaxAutoCommit=true"/>
-        <property name="username" value="silkconnect"/>
-        <property name="password" value="Syncs3cret"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/activemq?relaxAutoCommit=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
         <property name="initialSize" value="5"/>
         <property name="maxTotal" value="100"/>
         <property name="maxIdle" value="30"/>
